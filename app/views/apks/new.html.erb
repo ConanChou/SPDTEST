@@ -1,0 +1,21 @@
+<% if !@apk.errors.empty? %>
+    <div class = "alert alert-error">
+
+      <ul>
+        <% @apk.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+      </ul>
+
+    </div>
+<% end %>
+
+<div class = "well">
+  <%= form_for @apk, html: { multipart: true } do |f| %>
+      <div class="form-group">
+        <%= f.label :file %>
+        <%= f.file_field :file %>
+      </div>
+      <%= f.submit "Upload", class: "btn btn-primary" %>
+  <% end %>
+</div>

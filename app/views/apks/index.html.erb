@@ -1,0 +1,36 @@
+<% if !flash[:notice].blank? %>
+    <div class = "alert alert-info">
+      <%= flash[:notice] %>
+    </div>
+<% end %>
+
+<br />
+<%= react_component('HelloMessage', name: 'Conan') %>
+<%= link_to "New Apk", new_apk_path, class: "btn btn-primary" %>
+<br />
+<br />
+
+<table class = "table table-bordered table-striped">
+  <thead>
+  <tr>
+    <th>File Name</th>
+    <th>Size</th>
+    <th> </th>
+    <th> </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @apks.each do |apk| %>
+
+      <tr>
+        <td><%= File.basename(apk.file.path) %></td>
+        <td><%= apk.file.size/1000000.0 %> MB</td>
+        <td><%= link_to "Download Apk", apk.file_url %></td>
+        <td><%= button_to "Delete", apk, method: :delete, class: "btn btn-danger btn-xs" %></td>
+      </tr>
+
+  <% end %>
+  </tbody>
+
+</table>
