@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
-  root 'tests#index'
+  root 'apks#index'
 
   get 't' => 'tests#take_test'
 
