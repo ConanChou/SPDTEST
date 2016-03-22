@@ -11,6 +11,39 @@
 <% end %>
 
 <div class = "well">
+  <%= form_for @test do |f| %>
+      <div class="form-group">
+        <%= f.label :uid, 'User ID' %>
+        <%= f.text_field :uid %>
+      </div>
+      <div class="form-group">
+        <%= f.label :isp, 'ISP' %>
+        <%= f.text_field :isp %>
+      </div>
+      <div class="form-group radio-btn">
+        <%= f.label :has_gfw, 'Bypass GFW in the test?' %>
+        <%= f.radio_button :has_gfw, 'false' %>
+        <%= label_tag(:has_gfw_false, "No") %>
+        <%= f.radio_button :has_gfw, 'true' %>
+        <%= label_tag(:has_gfw_true, "Yes") %>
+      </div>
+      <div class="form-group">
+        <%= f.label :download_time, 'Download Time (in second)' %>
+        <%= f.text_field :download_time, :readonly => true %>
+      </div>
+      <div class="form-group">
+        <%= f.label :upload_time, 'Upload Time (in second)' %>
+        <%= f.text_field :upload_time, :readonly => true %>
+      </div>
+      <div class="form-group hide">
+        <%= f.label :apk_id, 'APK ID' %>
+        <%= f.text_field :apk_id %>
+      </div>
+      <%= f.submit "Test", class: "btn btn-primary" %>
+  <% end %>
+</div>
+<br>
+<div class = "well">
   <%= form_for @apk, html: { multipart: true } do |f| %>
       <div class="form-group">
         <%= f.label :file %>
@@ -18,4 +51,8 @@
       </div>
       <%= f.submit "Upload", class: "btn btn-primary" %>
   <% end %>
+</div>
+<br>
+<div class = "well">
+  <button type="button" id="test-btn" class="btn btn-primary">Auto Test</button>
 </div>

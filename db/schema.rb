@@ -15,16 +15,19 @@ ActiveRecord::Schema.define(version: 20160320054228) do
 
   create_table "apks", force: true do |t|
     t.string   "file"
+    t.integer  "test_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "tests", force: true do |t|
-    t.string   "user_name"
     t.integer  "apk_id"
+    t.string   "uid"
+    t.string   "isp"
     t.string   "ip"
-    t.string   "token"
-    t.boolean  "done"
+    t.string   "has_gfw"
+    t.float    "download_time"
+    t.float    "upload_time"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

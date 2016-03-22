@@ -4,18 +4,12 @@
     </div>
 <% end %>
 
-<br />
-<%= link_to "Invite", new_test_path, class: "btn btn-primary" %>
-<br />
-<br />
-
 <table class = "table table-bordered table-striped">
   <thead>
   <tr>
-    <th>Name</th>
-    <th>Invitation URI</th>
+    <th>UID</th>
     <th>IP</th>
-    <th>Done?</th>
+    <th>FILE</th>
   </tr>
   </thead>
 
@@ -23,10 +17,9 @@
   <% @tests.each do |test| %>
 
       <tr>
-        <td><%= test.user_name %></td>
-        <td><%= link_to "#{t_url}?#{test.token}", "#{t_path}?#{test.token}" %></td>
+        <td><%= test.uid %></td>
         <td><%= test.ip %></td>
-        <td><%= test.done %></td>
+        <td><%= File.basename(test.apk.file.path) %></td>
       </tr>
 
   <% end %>

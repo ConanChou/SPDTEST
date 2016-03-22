@@ -9,9 +9,12 @@ class TestsController < ApplicationController
   end
 
   def create
-    @test = Test.new(test_params)
+    p = test_params
+    @test = Test.new(p)
+    apk = Apk.find(p[:apk_id])
     if @test.save
-      redirect_to tests_path, notice: "#{@test.user_name}'s invitation has been generated."
+      @test.apk = apk
+      redirect_to tests_path, notice: "#{@test.uid}'s invitation has been generated."
     else
       render 'new'
     end
@@ -27,11 +30,11 @@ class TestsController < ApplicationController
   def destroy
     @test = Test.find(params[:id])
     @test.destroy
-    redirect_to tests_path, notice: "#{@test.user_name}'s invitation has been deleted."
+    redirect_to tests_path, notice: "#{@test.uid}'s invitation has been deleted."
   end
 
   private
   def test_params
-    params.require(:test).permit(:user_name).merge(:ip => request.remote_ip)
+    params.require(:test).permit(:uid, :isp, :has_gfw, :download_time, :upload_time, :apk_id).merge(:ip => request.remote_ip)
   end
 end
