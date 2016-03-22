@@ -5,7 +5,6 @@
 <% end %>
 
 <br />
-<%= react_component('HelloMessage', name: 'Conan') %>
 <%= link_to "New Apk", new_apk_path, class: "btn btn-primary" %>
 <br />
 <br />
@@ -21,13 +20,17 @@
   </thead>
 
   <tbody>
-  <% @apks.each do |apk| %>
+  <% @apks.each_with_index do |apk, index| %>
 
       <tr>
         <td><%= File.basename(apk.file.path) %></td>
         <td><%= apk.file.size/1000000.0 %> MB</td>
         <td><%= link_to "Download Apk", apk.file_url %></td>
-        <td><%= button_to "Delete", apk, method: :delete, class: "btn btn-danger btn-xs" %></td>
+        <% if index == 0 %>
+          <td><%= button_to "Delete", apk, method: :delete, class: "btn btn-danger btn-xs", disabled: 'disabled' %></td>
+        <% else %>
+          <td><%= button_to "Delete", apk, method: :delete, class: "btn btn-danger btn-xs" %></td>
+        <% end %>
       </tr>
 
   <% end %>

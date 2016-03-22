@@ -41,3 +41,13 @@ gem 'spring',        group: :development
 gem 'carrierwave'
 gem 'bootstrap-sass'
 gem 'react-rails'
+
+gem 'figaro'
+gem 'puma'
+group :development do
+  gem 'capistrano'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rvm'
+end

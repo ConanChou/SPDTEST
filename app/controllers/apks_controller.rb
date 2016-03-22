@@ -10,7 +10,7 @@ class ApksController < ApplicationController
   def create
     @apk = Apk.new(apk_params)
     if @apk.save
-      redirect_to apks_path, notice: "#{@apk.file} has been uploaded."
+      redirect_to apks_path, notice: "#{File.basename(@apk.file.path)} has been uploaded."
     else
       render 'new'
     end
@@ -18,8 +18,13 @@ class ApksController < ApplicationController
 
   def destroy
     @apk = Apk.find(params[:id])
-    @apk.destroy
-    redirect_to apks_path, notice: "#{@apk.file} has been deleted."
+    first_apk = Apk.all.first
+    if first_apk && first_apk != @apk
+      @apk.destroy
+      redirect_to apks_path, notice: "#{File.basename(@apk.file.path)} has been deleted."
+    else
+      redirect_to apks_path, notice: "The 1st file cannot be deleted."
+    end
   end
 
   private
