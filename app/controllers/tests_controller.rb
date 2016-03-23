@@ -11,7 +11,7 @@ class TestsController < ApplicationController
   def create
     p = test_params
     @test = Test.new(p)
-    apk = Apk.find(p[:apk_id])
+    apk = Apk.find_by_id(p[:apk_id] || 0)
     if @test.save
       @test.apk = apk
       redirect_to tests_path, notice: "#{@test.uid}'s invitation has been generated."

@@ -14,7 +14,6 @@
   <tr>
     <th>File Name</th>
     <th>Size</th>
-    <th> </th>
   </tr>
   </thead>
 
@@ -22,9 +21,12 @@
   <% @apks.each_with_index do |apk, index| %>
 
       <tr>
-        <td><%= File.basename(apk.file.path) %></td>
+        <% if apk.file.path %>
+            <td><%= File.basename(apk.file.path) %></td>
+        <% else %>
+            <td>NA</td>
+        <% end %>
         <td><%= apk.file.size/1000000.0 %> MB</td>
-        <td><%= link_to "Download Apk", apk.file_url %></td>
       </tr>
 
   <% end %>

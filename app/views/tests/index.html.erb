@@ -19,7 +19,11 @@
       <tr>
         <td><%= test.uid %></td>
         <td><%= test.ip %></td>
-        <td><%= File.basename(test.apk.file.path) %></td>
+        <% if test.apk %>
+            <td><%= File.basename(test.apk.file.path) %></td>
+        <% else %>
+            <td>NA</td>
+        <% end %>
       </tr>
 
   <% end %>
