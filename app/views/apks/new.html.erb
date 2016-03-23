@@ -9,47 +9,39 @@
 <% end %>
 
 <div class = "well">
+  <p>* 星号必填</p>
   <%= form_for @test do |f| %>
       <div class="form-group">
-        <%= f.label :uid, 'User ID' %>
+        <%= f.label :uid, 'User ID (选填)' %>
         <%= f.text_field :uid %>
       </div>
       <div class="form-group">
-        <%= f.label :isp, 'ISP' %>
+        <%= f.label :isp, 'ISP（如 广州电信） *' %>
         <%= f.text_field :isp %>
       </div>
       <div class="form-group radio-btn">
-        <%= f.label :has_gfw, 'Bypass GFW in the test?' %>
+        <%= f.label :has_gfw, '是否科学（fan）上网（qiang） *' %>
         <label>
           <%= f.radio_button :has_gfw, 'false' %>
-          No
+          否
         </label>
         <label>
           <%= f.radio_button :has_gfw, 'true' %>
-          Yes
+          是
         </label>
       </div>
       <div class="form-group">
-        <%= f.label :download_time, 'Download Time' %>
+        <%= f.label :download_time, '下载时间' %>
         <%= f.text_field :download_time, :readonly => true, :value => 'Auto Filled' %>
       </div>
       <div class="form-group">
-        <%= f.label :upload_time, 'Upload Time' %>
+        <%= f.label :upload_time, '上传时间' %>
         <%= f.text_field :upload_time, :readonly => true, :value => 'Auto Filled' %>
       </div>
-      <div class="form-group">
+      <div class="form-group hide">
         <%= f.label :apk_id, 'APK ID' %>
         <%= f.text_field :apk_id, :readonly => true, :value => 'Auto Filled' %>
       </div>
-      <%= f.submit "Auto Test", class: "btn btn-primary", id: 'test-btn' %>
-  <% end %>
-</div>
-<div class = "well hide">
-  <%= form_for @apk, html: { multipart: true } do |f| %>
-      <div class="form-group">
-        <%= f.label :file %>
-        <%= f.file_field :file %>
-      </div>
-      <%= f.submit "Upload", class: "btn btn-primary" %>
+      <%= f.submit "自动测试", class: "btn btn-primary", id: 'test-btn' %>
   <% end %>
 </div>

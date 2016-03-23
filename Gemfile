@@ -40,7 +40,6 @@ gem 'spring',        group: :development
 
 gem 'carrierwave'
 gem 'bootstrap-sass'
-gem 'react-rails'
 
 gem 'figaro'
 gem 'puma'

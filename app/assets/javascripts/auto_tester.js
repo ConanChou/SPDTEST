@@ -1,18 +1,48 @@
 /**
  * Created by conan on 3/22/16.
  */
-var submit_form = function() {$('#new_test')[0].submit();};
-//var submit_form = function() {
-//    return true;
-//};
 
-$(document).ready(function() {
-    $('#test-btn').click(function(event) {
+var form_validator = function() {
+    var testUid = $('#test_uid');
+    var testISP = $('#test_isp');
+    if (testUid.val().length < 1) {
+        testUid.val('NA');
+    }
+    var good_to_go = true;
+    if (testISP.val().length < 1) {
+        $("label[for='test_isp']").addClass('required_highlight');
+        good_to_go = false;
+    } else {
+        $("label[for='test_isp']").removeClass('required_highlight');
+    }
+    if (!$("input[name='test[has_gfw]']:checked").val()) {
+        $("label[for='test_has_gfw']").addClass('required_highlight');
+        good_to_go = false;
+    } else {
+        $("label[for='test_has_gfw']").removeClass('required_highlight');
+    }
+    return good_to_go;
+};
+var submit_form = function() {
+    if (form_validator()) {
+        $('#new_test').unbind('submit').submit();
+    } else {
+        return false;
+    }
+};
+
+jQuery(document).ready(function() {
+    $('#new_test').submit(function(event) {
         event.preventDefault();
-        var download_start = new Date().getTime();
+        if (!form_validator()) {
+            return false;
+        }
+        var download_start = null;
         var download_end = null;
         var upload_start = null;
         var upload_end = null;
+        $('#test_download_time').val('Downloading...');
+        download_start = new Date().getTime();
         $.ajax('/test.apk', {
             success: function(data) {
                 download_end = new Date().getTime();
@@ -23,6 +53,7 @@ $(document).ready(function() {
                 var formData = new FormData();
                 var file = new File([data], "test.apk");
                 formData.append('apk[file]', file);
+                $('#test_upload_time').val('Uploading...');
                 upload_start = new Date().getTime();
                 $.ajax({
                     url:'/apks.json',
@@ -41,13 +72,13 @@ $(document).ready(function() {
                         $('#test_apk_id').val(response.apk);
                         console.log(response.apk);
 
-                        setTimeout(submit_form, 3000);
+                        setTimeout(submit_form, 1000);
                     },
                     error: function() {
                         $('#test_upload_time').val('FAIL');
                         $('#test_apk_id').val(0);
 
-                        setTimeout(submit_form, 3000);
+                        setTimeout(submit_form, 1000);
                     }
                 });
 
@@ -57,8 +88,10 @@ $(document).ready(function() {
                 $('#test_upload_time').val('FAIL');
                 $('#test_apk_id').val(0);
 
-                setTimeout(submit_form, 3000);
-            }
+                setTimeout(submit_form, 1000);
+            },
+            async: false
         });
+        event.preventDefault();
     });
 });

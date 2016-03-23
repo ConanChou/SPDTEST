@@ -3,13 +3,22 @@
       <%= flash[:notice] %>
     </div>
 <% end %>
+<div class="well">
+  <h2>测试方法更新</h2>
+  <p>之前的方法需要测试者掐秒表，实在是浪费大家的时间，于是我又把测试机制修改了。用JavaScript代劳了。新的测试方法很简单：
+  </p>
+  <ol>
+    <li>点击下面的“创建测试”。</li>
+    <li>在新的页面里按要求填写表格，再单击“自动测试”按钮。</li>
+  </ol>
+  <p>自动测试会自动下载标准测试文件，再将其上传，两个步骤都会计时。</p>
+</div>
+<br />
+<%= link_to "创建测试", new_apk_path, class: "btn btn-primary" %>
+<br />
+<br />
 
-<br />
-<%= link_to "New Test", new_apk_path, class: "btn btn-primary" %>
-<br />
-<br />
-
-<table class = "table table-bordered table-striped">
+<table class = "table table-bordered table-striped hide">
   <thead>
   <tr>
     <th>File Name</th>

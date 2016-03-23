@@ -14,7 +14,7 @@ class TestsController < ApplicationController
     apk = Apk.find_by_id(p[:apk_id] || 0)
     if @test.save
       @test.apk = apk
-      redirect_to tests_path, notice: "#{@test.uid}'s invitation has been generated."
+      redirect_to tests_path, notice: "测试已完成，非常感谢！"
     else
       render 'new'
     end

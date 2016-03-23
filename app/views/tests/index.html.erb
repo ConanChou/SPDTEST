@@ -10,6 +10,8 @@
     <th>UID</th>
     <th>IP</th>
     <th>FILE</th>
+    <th>DL TIME in SEC</th>
+    <th>UL TIME in SEC</th>
   </tr>
   </thead>
 
@@ -18,12 +20,14 @@
 
       <tr>
         <td><%= test.uid %></td>
-        <td><%= test.ip %></td>
+        <td><%= test.isp %></td>
         <% if test.apk %>
             <td><%= File.basename(test.apk.file.path) %></td>
         <% else %>
             <td>NA</td>
         <% end %>
+        <td><%= test.download_time %></td>
+        <td><%= test.upload_time %></td>
       </tr>
 
   <% end %>
