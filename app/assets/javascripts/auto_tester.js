@@ -1,42 +1,46 @@
 /**
  * Created by conan on 3/22/16.
  */
-
-var form_validator = function() {
-    var testUid = $('#test_uid');
-    var testISP = $('#test_isp');
-    if (testUid.val().length < 1) {
-        testUid.val('NA');
-    }
-    var good_to_go = true;
-    if (testISP.val().length < 1) {
-        $("label[for='test_isp']").addClass('required_highlight');
-        good_to_go = false;
-    } else {
-        $("label[for='test_isp']").removeClass('required_highlight');
-    }
-    if (!$("input[name='test[has_gfw]']:checked").val()) {
-        $("label[for='test_has_gfw']").addClass('required_highlight');
-        good_to_go = false;
-    } else {
-        $("label[for='test_has_gfw']").removeClass('required_highlight');
-    }
-    return good_to_go;
-};
-var submit_form = function() {
-    if (form_validator()) {
-        $('#new_test').unbind('submit').submit();
-    } else {
-        return false;
-    }
-};
-
 jQuery(document).ready(function() {
+
+    var btn = $('#test-btn');
+
+    var form_validator = function() {
+        var testUid = $('#test_uid');
+        var testISP = $('#test_isp');
+        if (testUid.val().length < 1) {
+            testUid.val('NA');
+        }
+        var good_to_go = true;
+        if (testISP.val().length < 1) {
+            $("label[for='test_isp']").addClass('required_highlight');
+            good_to_go = false;
+        } else {
+            $("label[for='test_isp']").removeClass('required_highlight');
+        }
+        if (!$("input[name='test[has_gfw]']:checked").val()) {
+            $("label[for='test_has_gfw']").addClass('required_highlight');
+            good_to_go = false;
+        } else {
+            $("label[for='test_has_gfw']").removeClass('required_highlight');
+        }
+        btn.button('reset');
+        return good_to_go;
+    };
+
+    var submit_form = function() {
+        if (form_validator()) {
+            $('#new_test').unbind('submit').submit();
+        } else {
+            return false;
+        }
+    };
     $('#new_test').submit(function(event) {
         event.preventDefault();
         if (!form_validator()) {
             return false;
         }
+        $('#test-btn').button('loading');
         var download_start = null;
         var download_end = null;
         var upload_start = null;
@@ -58,7 +62,6 @@ jQuery(document).ready(function() {
                 $.ajax({
                     url:'/apks.json',
                     type: 'POST',
-                    async: false,
                     data: formData,
                     cache: false,
                     processData: false,
@@ -89,8 +92,7 @@ jQuery(document).ready(function() {
                 $('#test_apk_id').val(0);
 
                 setTimeout(submit_form, 1000);
-            },
-            async: false
+            }
         });
         event.preventDefault();
     });

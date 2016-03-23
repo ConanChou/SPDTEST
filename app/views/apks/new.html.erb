@@ -42,6 +42,6 @@
         <%= f.label :apk_id, 'APK ID' %>
         <%= f.text_field :apk_id, :readonly => true, :value => 'Auto Filled' %>
       </div>
-      <%= f.submit "自动测试", class: "btn btn-primary", id: 'test-btn' %>
+      <%= f.submit "自动测试", class: "btn btn-primary", id: 'test-btn', 'data-loading-text' => '测试中...', autocomplete: 'off' %>
   <% end %>
 </div>
