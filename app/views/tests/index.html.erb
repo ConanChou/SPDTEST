@@ -9,7 +9,7 @@
   <tr>
     <th>UID</th>
     <th>ISP</th>
-    <th>FILE</th>
+    <th>GFW?</th>
     <th>DL TIME in SEC</th>
     <th>UL TIME in SEC</th>
   </tr>
@@ -21,11 +21,7 @@
       <tr>
         <td><%= test.uid %></td>
         <td><%= test.isp %></td>
-        <% if test.apk %>
-            <td><%= File.basename(test.apk.file.path) %></td>
-        <% else %>
-            <td>NA</td>
-        <% end %>
+        <td><%= !test.has_gfw %></td>
         <td><%= test.download_time %></td>
         <td><%= test.upload_time %></td>
       </tr>

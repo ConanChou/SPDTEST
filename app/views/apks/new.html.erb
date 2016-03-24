@@ -40,7 +40,11 @@
       </div>
       <div class="form-group hide">
         <%= f.label :apk_id, 'APK ID' %>
-        <%= f.text_field :apk_id, :readonly => true, :value => 'Auto Filled' %>
+        <%= f.text_field :apk_id, :readonly => true, :value => '0' %>
+      </div>
+      <div class="form-group hide">
+        <label for="test_id">TEST ID</label>
+        <input id="test_id" name="test_id" readonly="readonly" type="text" value="0">
       </div>
       <%= f.submit "自动测试", class: "btn btn-primary", id: 'test-btn', 'data-loading-text' => '测试中...', autocomplete: 'off' %>
   <% end %>

@@ -10,11 +10,20 @@ class TestsController < ApplicationController
 
   def create
     p = test_params
-    @test = Test.new(p)
+    @test = nil
+    if params[:test_id] && params[:test_id] != '0'
+      @test = Test.find_by_id(params[:test_id])
+      @test.update(p)
+    else
+      @test = Test.new(p)
+    end
     apk = Apk.find_by_id(p[:apk_id] || 0)
-    if @test.save
+    if @test && @test.save
       @test.apk = apk
-      redirect_to tests_path, notice: "测试已完成，非常感谢！"
+      respond_to do |format|
+        format.html {redirect_to tests_path, notice: "测试已完成，非常感谢！"}
+        format.json {render json: {:test_id => @test.id}}
+      end
     else
       render 'new'
     end

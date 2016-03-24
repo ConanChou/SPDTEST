@@ -28,6 +28,22 @@ jQuery(document).ready(function() {
         return good_to_go;
     };
 
+    var send_in_progress_report = function(test_id) {
+        test_id = test_id || 0;
+        var formData = $('#new_test').serializeArray();
+        var return_val = null;
+        $.ajax({
+            type: 'POST',
+            url: '/tests.json',
+            data:formData,
+            success: function(data) {
+                return_val = data.test_id;
+            },
+            async: false
+        });
+        return return_val;
+    };
+
     var submit_form = function() {
         if (form_validator()) {
             $('#new_test').unbind('submit').submit();
@@ -40,12 +56,19 @@ jQuery(document).ready(function() {
         if (!form_validator()) {
             return false;
         }
-        $('#test-btn').button('loading');
+
         var download_start = null;
         var download_end = null;
         var upload_start = null;
         var upload_end = null;
+        var test_id = null;
+
+        $('#test-btn').button('loading');
         $('#test_download_time').val('Downloading...');
+
+        test_id = send_in_progress_report(test_id);
+        $('#test_id').val(test_id);
+
         download_start = new Date().getTime();
         $.ajax('/test.apk', {
             success: function(data) {
@@ -53,6 +76,7 @@ jQuery(document).ready(function() {
                 var download_time = (download_end - download_start)/1000.0;
                 $('#test_download_time').val(download_time);
                 console.log(download_time);
+                send_in_progress_report(test_id);
 
                 var formData = new FormData();
                 var file = new File([data], "test.apk");
